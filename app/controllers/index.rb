@@ -1,6 +1,6 @@
 get '/' do
   # let user create new short URL, display a list of shortened URLs
-  @short_urls = Url.all.limit(10)
+  @short_urls = Url.last(10)
   erb :index
 end
 
@@ -10,16 +10,15 @@ post '/urls' do
   if Url.url_valid?(@long_url)
     @new_url = Url.new(:long_url => @long_url)
     @new_url.save
-    @short_urls = Url.all.limit(10)
+    @short_urls = Url.last(10)
     erb :index
   else
     @error_message = "This is not a valid URL"
-    @short_urls = Url.all.limit(10)
+    @short_urls = Url.last(10)
     erb :index
   end
 end
 
-# e.g., /q6bda
 get '/:short_url' do
   short_url = params[:short_url]
   url_obj = Url.where(:short_url => short_url).first

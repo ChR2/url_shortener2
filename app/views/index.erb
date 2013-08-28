@@ -1,19 +1,21 @@
 
-  <h1>Welcome Our URL Shortner!</h1>
+  <h1>Welcome to URL Shortener!</h1>
    <form  action= '/urls' method= "POST"> 
-    <label>Type in a valid long URL!</label><br>
+    <label>Type in your URL to get started!</label><br><br>
       <input type="text" name="long_url">
-      <input type="submit" name="Shorten it!">
+      <input class='btn' type="submit" name="Shorten it!">
    </form>
+   <br>
    <% if @error_message %>
      <%= @error_message %>
    <% end %>
 
    <% if @new_url %>
-     <a href="http://localhost:9393/<%=@new_url.short_url%>"><%="http://localhost:9393/#{@new_url.short_url}"%></a>
+     Here is your new URL: <a href="http://localhost:9393/<%=@new_url.short_url%>"><%="http://localhost:9393/#{@new_url.short_url}"%></a>
    <% end %>
-
    <h2> Most Recent Shortened URL's</h2>
       <% @short_urls.each do |url|%>
-        <a href="http://localhost:9393/<%=url.short_url%>"><%=url.short_url%></a><br>
+        <a href="http://localhost:9393/<%=url.short_url%>"><%="http://localhost:9393/#{url.short_url}"%></a>
+        <br>
+        <br>
       <% end%>
