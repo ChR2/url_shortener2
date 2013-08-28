@@ -1,23 +1,19 @@
-<div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
-</div>
+  <h1>Welcome Our URL Shortner!</h1>
+   <form  action= '/urls' method= "POST"> 
+    <label>Type in a valid long URL!</label><br>
+      <input type="text" name="long_url">
+      <input type="submit" name="Shorten it!">
+   </form>
+   <% if @error_message %>
+     <%= @error_message %>
+   <% end %>
+
+   <% if @new_url %>
+     <a href="http://localhost:9393/<%=@new_url.short_url%>"><%="http://localhost:9393/#{@new_url.short_url}"%></a>
+   <% end %>
+
+   <h2> Most Recent Shortened URL's</h2>
+      <% @short_urls.each do |url|%>
+        <a href="http://localhost:9393/<%=url.short_url%>"><%=url.short_url%></a><br>
+      <% end%>
